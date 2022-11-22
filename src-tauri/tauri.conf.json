@@ -56,7 +56,7 @@
     "windows": [
       {
         "fullscreen": false,
-        "height": 600,
+        "height": 480,
         "resizable": true,
         "title": "lit-clock",
         "width": 800
