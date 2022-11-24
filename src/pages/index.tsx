@@ -29,7 +29,7 @@ export default function Home() {
                 />
                 <link rel="icon" href="/src/public/favicon.ico" />
             </Head>
-            <main>{rawQuote && <Quote {...rawQuote} />}</main>
+            {rawQuote && <Quote {...rawQuote} />}
         </div>
     );
 }

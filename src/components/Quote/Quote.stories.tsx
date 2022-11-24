@@ -33,7 +33,11 @@ const reallyLongQuote: DBQuote = {
     author: 'Anton Chekhov',
 };
 
-const Template = (args: any) => <Component {...args} />;
+const Template = (args: any) => (
+    <main>
+        <Component {...args} />
+    </main>
+);
 
 export const ShortQuote = Template.bind({});
 // @ts-ignore
@@ -48,9 +52,16 @@ export const ReallyLongQuote = Template.bind({});
 ReallyLongQuote.args = reallyLongQuote;
 
 export const DarkMode = (args: any) => (
-    <SettingsProvider value={{ dark_mode: true }}>
-        <Component {...args} />
-    </SettingsProvider>
+    <main>
+        <SettingsProvider
+            value={{
+                dark_mode: true,
+                toggleDarkMode: async () => {},
+            }}
+        >
+            <Component {...args} />
+        </SettingsProvider>
+    </main>
 );
 // @ts-ignore
 DarkMode.args = basicQuote;

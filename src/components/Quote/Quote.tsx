@@ -45,16 +45,11 @@ export const Quote = (props: QuoteProps): JSX.Element => {
     return (
         <figure
             className={cn(
-                'flex flex-col justify-between pl-8 pr-8 pt-4 pb-8',
+                'h-full w-full flex flex-col justify-between pl-8 pr-8 pt-4 pb-8 box-border',
                 robotoSlab.className,
                 textColor,
                 bgColor
             )}
-            style={{
-                width: 800,
-                height: 480,
-                boxSizing: 'border-box',
-            }}
         >
             <blockquote className="pt-8">
                 <p className={cn(leading, fontSize, 'font-light')}>
