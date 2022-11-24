@@ -1,7 +1,6 @@
 import { useSettings } from './context';
 import { FormEvent, useState } from 'react';
 import { useRouter } from 'next/router';
-import './page.css';
 import cn from 'classnames';
 
 export const SettingsPage = () => {
