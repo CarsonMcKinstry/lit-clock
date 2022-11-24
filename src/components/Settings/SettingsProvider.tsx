@@ -3,28 +3,42 @@ import { Provider } from './context';
 import { Settings } from './types';
 import { invoke } from '@tauri-apps/api/tauri';
 
+type ActualSettings = Omit<Settings, 'updateSettings'>;
+
 export const SettingsProvider = ({
     children,
 }: {
     children: ReactNode;
 }): JSX.Element | null => {
-    const [settings, setSettings] = useState<null | Pick<
-        Settings,
-        'dark_mode'
-    >>(null);
+    const [settings, setSettings] = useState<null | ActualSettings>(null);
     const [errors, setError] = useState<Error | null>();
 
     useEffect(() => {
-        invoke<Pick<Settings, 'dark_mode'>>('get_settings')
+        invoke<ActualSettings>('get_settings')
             .then((settings) => {
+                console.log(settings);
                 setSettings(settings);
             })
             .catch((err) => {
+                console.log(err);
                 setError(err);
             });
     }, []);
 
-    const toggleDarkMode = async () => {};
+    const updateSettings = async (settings: ActualSettings) => {
+        console.log(settings);
+        invoke<ActualSettings>('update_settings', {
+            settings,
+        })
+            .then((s) => {
+                console.log(s);
+                setSettings(s);
+            })
+            .catch((err) => {
+                console.log(err);
+                setError(err);
+            });
+    };
 
     if (!settings) return null;
 
@@ -41,7 +55,7 @@ export const SettingsProvider = ({
         <Provider
             value={{
                 ...settings,
-                toggleDarkMode,
+                updateSettings,
             }}
         >
             {children}

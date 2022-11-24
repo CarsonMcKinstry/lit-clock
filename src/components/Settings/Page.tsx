@@ -5,14 +5,16 @@ import cn from 'classnames';
 
 export const SettingsPage = () => {
     const router = useRouter();
-    const { dark_mode, toggleDarkMode } = useSettings() ?? {};
+    const { dark_mode, updateSettings } = useSettings() ?? {};
 
     const [darkMode, setDarkMode] = useState(() => dark_mode);
 
     const saveChanges = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        toggleDarkMode?.().then(() => {
+        updateSettings?.({
+            dark_mode: !!darkMode,
+        }).then((data) => {
             router.push('/');
         });
     };

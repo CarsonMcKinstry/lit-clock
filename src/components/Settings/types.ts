@@ -1,4 +1,6 @@
 export interface Settings {
     dark_mode: boolean;
-    toggleDarkMode: () => Promise<void>;
+    updateSettings: (
+        settings: Omit<Settings, 'updateSettings'>
+    ) => Promise<void>;
 }
