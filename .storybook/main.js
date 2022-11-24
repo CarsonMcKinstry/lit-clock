@@ -20,4 +20,12 @@ module.exports = {
     core: {
         builder: '@storybook/builder-webpack5',
     },
+    webpackFinal: async (config) => {
+        config.resolve.alias = {
+            ...config.resolve.alias,
+            '@next/font/google': require.resolve('./nextFontGoogle'),
+        };
+
+        return config;
+    },
 };
