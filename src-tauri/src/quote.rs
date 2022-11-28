@@ -24,7 +24,7 @@ struct QuotesConnection {
 }
 
 impl<'a> QuotesConnection {
-    const DB_LOCATION: &'a str = "../resources/quotes.db";
+    const DB_LOCATION: &'a str = "resources/quotes.db";
 
     const GET_TIME: &'a str = "
         SELECT * FROM quotes

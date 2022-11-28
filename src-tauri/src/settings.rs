@@ -13,7 +13,7 @@ struct SettingsConnection {
 
 impl <'a> SettingsConnection {
 
-    const DB_LOCATION : &'a str = "../resources/settings.db";
+    const DB_LOCATION : &'a str = "resources/settings.db";
 
     const CREATE_TABLE: &'a str = "
         CREATE TABLE IF NOT EXISTS settings (

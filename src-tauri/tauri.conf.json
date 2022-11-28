@@ -1,7 +1,7 @@
 {
   "$schema": "../node_modules/@tauri-apps/cli/schema.json",
   "build": {
-    "beforeBuildCommand": "yarn build &amp;&amp; yarn export",
+    "beforeBuildCommand": "yarn build && yarn export",
     "beforeDevCommand": "yarn dev",
     "devPath": "http://localhost:3000",
     "distDir": "../out"
@@ -12,7 +12,11 @@
   },
   "tauri": {
     "allowlist": {
-      "all": true
+      "fs": {
+        "scope": [
+          "$RESOURCE/*"
+        ]
+      }
     },
     "bundle": {
       "active": true,
@@ -29,7 +33,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.tauri.dev",
+      "identifier": "com.lib-clock.dev",
       "longDescription": "",
       "macOS": {
         "entitlements": null,
@@ -39,6 +43,7 @@
         "signingIdentity": null
       },
       "resources": [
+        "resources/*"
       ],
       "shortDescription": "",
       "targets": "all",
