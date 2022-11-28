@@ -1,8 +1,7 @@
-import { useCurrentTime } from 'hooks/useCurrentTime';
-import { useEffect, useState } from 'react';
-import { invoke } from '@tauri-apps/api/tauri';
-import { DBQuote, Quote } from 'components/Quote';
-import { useRouter } from 'next/router';
+import {useCurrentTime} from 'hooks/useCurrentTime';
+import {useEffect, useState} from 'react';
+import {DBQuote, Quote} from 'components/Quote';
+import {useRouter} from 'next/router';
 
 export default function Home() {
     const router = useRouter();
@@ -10,12 +9,15 @@ export default function Home() {
     const [rawQuote, setQuote] = useState<DBQuote | null>(null);
 
     useEffect(() => {
+
         if (!rawQuote || (!!rawQuote && rawQuote.time !== currentTime)) {
-            invoke<DBQuote>('get_time', { time: currentTime })
-                .then((q) => {
+            fetch(`/api/time?t=${currentTime}`,)
+                .then(d => d.json())
+                .then(q => {
                     setQuote(q);
                 })
-                .catch(console.error);
+                .catch(console.error)
+
         }
     }, [rawQuote, currentTime]);
 

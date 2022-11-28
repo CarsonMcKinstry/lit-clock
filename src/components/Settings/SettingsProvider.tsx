@@ -1,43 +1,33 @@
-import { ReactNode, useEffect, useState } from 'react';
-import { Provider } from './context';
-import { Settings } from './types';
-import { invoke } from '@tauri-apps/api/tauri';
+import {ReactNode, useEffect, useState} from 'react';
+import {Provider} from './context';
+import {Settings} from './types';
 
 type ActualSettings = Omit<Settings, 'updateSettings'>;
 
 export const SettingsProvider = ({
-    children,
-}: {
+                                     children,
+                                 }: {
     children: ReactNode;
 }): JSX.Element | null => {
-    const [settings, setSettings] = useState<null | ActualSettings>(null);
+    const [settings, setSettings] = useState<null | ActualSettings>();
     const [errors, setError] = useState<Error | null>();
 
+
     useEffect(() => {
-        invoke<ActualSettings>('get_settings')
-            .then((settings) => {
-                console.log(settings);
-                setSettings(settings);
-            })
-            .catch((err) => {
-                console.log(err);
-                setError(err);
-            });
+        fetch('/api/settings')
+            .then(res => res.json())
+            .then(setSettings)
     }, []);
 
     const updateSettings = async (settings: ActualSettings) => {
         console.log(settings);
-        invoke<ActualSettings>('update_settings', {
-            settings,
+        fetch('/api/settings', {
+            method: 'POST',
+            body: JSON.stringify(settings)
         })
-            .then((s) => {
-                console.log(s);
-                setSettings(s);
-            })
-            .catch((err) => {
-                console.log(err);
-                setError(err);
-            });
+            .then(res => res.json())
+            .then(setSettings)
+            .catch(console.error)
     };
 
     if (!settings) return null;

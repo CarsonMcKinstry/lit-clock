@@ -1,9 +1,8 @@
-import { DBQuote } from './types';
+import {DBQuote} from './types';
 import cn from 'classnames';
 
-import { Roboto_Slab } from '@next/font/google';
-import { useDarkMode } from '@devtools-ds/themes';
-import { useSettings } from '../Settings';
+import {Roboto_Slab} from '@next/font/google';
+import {useSettings} from '../Settings';
 
 const robotoSlab = Roboto_Slab({
     weight: ['300', '500', '700', '800'],
@@ -11,7 +10,8 @@ const robotoSlab = Roboto_Slab({
     subsets: ['latin'],
 });
 
-interface QuoteProps extends DBQuote {}
+interface QuoteProps extends DBQuote {
+}
 
 const getFontSize = (quote: string) => {
     const len = quote.length;
@@ -28,11 +28,11 @@ const getFontSize = (quote: string) => {
 };
 
 export const Quote = (props: QuoteProps): JSX.Element => {
-    const { dark_mode } = useSettings() ?? {};
-    const { time_string, quote, title, author } = props;
+    const {dark_mode} = useSettings() ?? {};
+    const {time_words, quote, title, author} = props;
 
-    const before = quote.slice(0, quote.indexOf(time_string));
-    const after = quote.slice(quote.indexOf(time_string) + time_string.length);
+    const before = quote.slice(0, quote.indexOf(time_words));
+    const after = quote.slice(quote.indexOf(time_words) + time_words.length);
 
     const leading = quote.length > 320 ? 'leading-normal' : 'leading-relaxed';
     const fontSize = getFontSize(quote);
@@ -55,7 +55,7 @@ export const Quote = (props: QuoteProps): JSX.Element => {
                 <p className={cn(leading, fontSize, 'font-light')}>
                     {before}
                     <span className={cn('font-bold tracking-wide', timeColor)}>
-                        {time_string}
+                        {time_words}
                     </span>
                     {after}
                 </p>
