@@ -13,7 +13,7 @@ struct SettingsConnection {
 
 impl <'a> SettingsConnection {
 
-    const DB_LOCATION : &'a str = "settings.db";
+    const DB_LOCATION : &'a str = "../settings.db";
 
     const CREATE_TABLE: &'a str = "
         CREATE TABLE IF NOT EXISTS settings (
@@ -37,7 +37,7 @@ impl <'a> SettingsConnection {
     ";
 
     pub fn open() -> Self {
-        let conn = rusqlite::Connection::open(Self::DB_LOCATION).expect("Failed to open database connection");
+        let conn = rusqlite::Connection::open(Self::DB_LOCATION).expect("Failed to open settings database connection");
 
         let mut s = Self {
             conn
