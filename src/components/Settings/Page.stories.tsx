@@ -1,7 +1,5 @@
-import { ComponentMeta } from '@storybook/react';
 import { SettingsPage as Component } from './Page';
 import { Provider } from './context';
-import { useState } from 'react';
 
 export default {
     title: 'Page/Settings',
@@ -13,7 +11,7 @@ const Template = (args: any) => {
 
     return (
         <main>
-            <Provider value={{ dark_mode: false, updateSettings }}>
+            <Provider value={{ id: '1', dark_mode: false, updateSettings }}>
                 <Component />
             </Provider>
         </main>

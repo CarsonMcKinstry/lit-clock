@@ -1,33 +1,31 @@
-import {ReactNode, useEffect, useState} from 'react';
-import {Provider} from './context';
-import {Settings} from './types';
+import { ReactNode, useEffect, useState } from 'react';
+import { Provider } from './context';
+import { Settings } from './types';
 
 type ActualSettings = Omit<Settings, 'updateSettings'>;
 
 export const SettingsProvider = ({
-                                     children,
-                                 }: {
+    children,
+}: {
     children: ReactNode;
 }): JSX.Element | null => {
     const [settings, setSettings] = useState<null | ActualSettings>();
     const [errors, setError] = useState<Error | null>();
 
-
     useEffect(() => {
         fetch('/api/settings')
-            .then(res => res.json())
-            .then(setSettings)
+            .then((res) => res.json())
+            .then(setSettings);
     }, []);
 
     const updateSettings = async (settings: ActualSettings) => {
-        console.log(settings);
         fetch('/api/settings', {
             method: 'POST',
-            body: JSON.stringify(settings)
+            body: JSON.stringify(settings),
         })
-            .then(res => res.json())
+            .then((res) => res.json())
             .then(setSettings)
-            .catch(console.error)
+            .catch(console.error);
     };
 
     if (!settings) return null;

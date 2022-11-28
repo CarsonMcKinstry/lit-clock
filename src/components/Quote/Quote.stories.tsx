@@ -1,8 +1,8 @@
-import {Quote as Component} from './Quote';
-import {DBQuote} from './types';
-import {ComponentMeta} from '@storybook/react';
+import { Quote as Component } from './Quote';
+import { DBQuote } from './types';
+import { ComponentMeta } from '@storybook/react';
 import './font.story.css';
-import {Provider as SettingsProvider} from '../Settings';
+import { Provider as SettingsProvider } from '../Settings';
 
 export default {
     title: 'Quote',
@@ -55,9 +55,9 @@ export const DarkMode = (args: any) => (
     <main>
         <SettingsProvider
             value={{
+                id: '1',
                 dark_mode: true,
-                updateSettings: async () => {
-                },
+                updateSettings: async () => {},
             }}
         >
             <Component {...args} />

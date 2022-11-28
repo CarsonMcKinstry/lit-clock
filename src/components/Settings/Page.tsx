@@ -13,6 +13,7 @@ export const SettingsPage = () => {
         e.preventDefault();
 
         updateSettings?.({
+            id: '1',
             dark_mode: !!darkMode,
         }).then((data) => {
             router.push('/');
