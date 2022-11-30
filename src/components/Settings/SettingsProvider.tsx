@@ -9,23 +9,25 @@ export const SettingsProvider = ({
 }: {
     children: ReactNode;
 }): JSX.Element | null => {
-    const [settings, setSettings] = useState<null | ActualSettings>();
+    const [settings, setSettings] = useState<null | ActualSettings>({
+        dark_mode: false,
+    });
     const [errors, setError] = useState<Error | null>();
 
     useEffect(() => {
-        fetch('/api/settings')
-            .then((res) => res.json())
-            .then(setSettings);
+        // fetch('/api/settings')
+        //     .then((res) => res.json())
+        //     .then(setSettings);
     }, []);
 
     const updateSettings = async (settings: ActualSettings) => {
-        fetch('/api/settings', {
-            method: 'POST',
-            body: JSON.stringify(settings),
-        })
-            .then((res) => res.json())
-            .then(setSettings)
-            .catch(console.error);
+        // fetch('/api/settings', {
+        //     method: 'POST',
+        //     body: JSON.stringify(settings),
+        // })
+        //     .then((res) => res.json())
+        //     .then(setSettings)
+        //     .catch(console.error);
     };
 
     if (!settings) return null;

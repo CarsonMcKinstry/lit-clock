@@ -1,4 +1,3 @@
-import { PrismaClient } from '@prisma/client';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { getTime } from 'db';
 

@@ -55,7 +55,6 @@ export const DarkMode = (args: any) => (
     <main>
         <SettingsProvider
             value={{
-                id: '1',
                 dark_mode: true,
                 updateSettings: async () => {},
             }}

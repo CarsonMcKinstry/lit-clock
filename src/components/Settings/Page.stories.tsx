@@ -11,7 +11,7 @@ const Template = (args: any) => {
 
     return (
         <main>
-            <Provider value={{ id: '1', dark_mode: false, updateSettings }}>
+            <Provider value={{ dark_mode: false, updateSettings }}>
                 <Component />
             </Provider>
         </main>

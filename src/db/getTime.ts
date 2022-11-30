@@ -13,14 +13,10 @@ function shuffle<T>(arr: T[]): T[] {
     return [...arr].sort(() => (Math.random() > 0.5 ? -1 : 1));
 }
 
-export const getTime = async (time: string) => {
-    const conn = connect();
+export const getTime = async (timeToFind: string) => {
+    const conn = await connect();
 
-    const times = await conn<DBQuote>('quote')
-        .where({
-            time,
-        })
-        .select('*');
+    const times = conn.filter(({ time }) => time === timeToFind);
 
     const quote = shuffle(times)[0];
 
@@ -30,11 +26,11 @@ export const getTime = async (time: string) => {
 
     const replacementQuote = shuffle(missingQuotes)[0];
 
-    const finalQuote = replacementQuote.replace('{}', time);
+    const finalQuote = replacementQuote.replace('{}', timeToFind);
 
     return {
-        time,
-        time_words: time,
+        time: timeToFind,
+        time_words: timeToFind,
         quote: finalQuote,
         title: 'My Brain',
         author: 'Carson',

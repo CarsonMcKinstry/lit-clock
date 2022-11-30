@@ -1,18 +1,17 @@
-import knex, { Knex } from 'knex';
+import { DBQuote } from 'components/Quote';
+import fs from 'fs/promises';
 import path from 'path';
 
-let connection: Knex;
+let rows: DBQuote[];
 
-export const connect = () => {
-    if (!connection) {
-        connection = knex({
-            client: 'sqlite3',
-            connection: {
-                filename: path.resolve('./db/quotes.db'),
-            },
-            useNullAsDefault: false,
-        });
+export const connect = async () => {
+    if (!rows) {
+        const file = await fs.readFile(path.resolve('data.json'), 'utf-8');
+
+        const json = JSON.parse(file);
+
+        rows = json;
     }
 
-    return connection;
+    return rows;
 };
