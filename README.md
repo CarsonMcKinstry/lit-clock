@@ -45,3 +45,22 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 - [Build a raspberry pi smart clock](https://tellini.info/2018/08/create-a-smart-clock-with-a-raspberry-pi/)
 - [Run a docker container on start](https://toub.es/2017/08/08/how-to-start-a-docker-container-at-boot-time/)
 - [Hide the cursor](https://forums.raspberrypi.com/viewtopic.php?t=234879)
+
+Build for the raspberry pi:
+
+On host machine:
+
+```bash
+docker build -t lit-clock --platform linux/amd/v7
+docker save -o lit-clock.tar lit-clock
+scp lit-clock.tar pi@192.168.4.72:~/lit-clock.tar
+```
+
+On the rpi:
+
+```bash
+docker load -i ~/lit-clock.tar
+```
+
+You might have to kill the currently running clock and set up the docker container again. If that's the case, look at
+the links above
