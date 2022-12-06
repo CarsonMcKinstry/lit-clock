@@ -6,17 +6,25 @@ import { Settings } from './types';
 type ActualSettings = Omit<Settings, 'updateSettings'>;
 
 const getSettings = () => {
-    const rawSettings = localStorage.getItem("settings");
+    if (typeof window !== 'undefined') {
+        const rawSettings = localStorage.getItem("settings");
 
-    return rawSettings ? JSON.parse(rawSettings) : {
+        return rawSettings ? JSON.parse(rawSettings) : {
+            dark_mode: false
+        }
+    }
+
+    return {
         dark_mode: false
     }
 }
 
 const setSettings = (newSettings: ActualSettings) => {
-    const rawSettings = JSON.stringify(newSettings);
+    if (typeof window !== 'undefined') {
+        const rawSettings = JSON.stringify(newSettings);
 
-    localStorage.setItem("settings", rawSettings);
+        localStorage.setItem("settings", rawSettings);
+    }
 }
 
 export const SettingsProvider = ({
@@ -25,7 +33,6 @@ export const SettingsProvider = ({
     children: ReactNode;
 }): JSX.Element | null => {
     const [settings, setSettingsState] = useState<null | ActualSettings>(getSettings);
-    const [errors, setError] = useState<Error | null>();
 
     const mounted = useRef<boolean>(false);
 
@@ -42,15 +49,6 @@ export const SettingsProvider = ({
     };
 
     if (!settings) return null;
-
-    if (errors) {
-        return (
-            <div>
-                Something went wrong. Carson should probably look at the
-                settings.
-            </div>
-        );
-    }
 
     return (
         <Provider
