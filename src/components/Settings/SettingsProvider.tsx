@@ -1,33 +1,44 @@
-import { ReactNode, useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import { ReactNode, useEffect, useState, useRef } from 'react';
 import { Provider } from './context';
 import { Settings } from './types';
 
 type ActualSettings = Omit<Settings, 'updateSettings'>;
+
+const getSettings = () => {
+    const rawSettings = localStorage.getItem("settings");
+
+    return rawSettings ? JSON.parse(rawSettings) : {
+        dark_mode: false
+    }
+}
+
+const setSettings = (newSettings: ActualSettings) => {
+    const rawSettings = JSON.stringify(newSettings);
+
+    localStorage.setItem("settings", rawSettings);
+}
 
 export const SettingsProvider = ({
     children,
 }: {
     children: ReactNode;
 }): JSX.Element | null => {
-    const [settings, setSettings] = useState<null | ActualSettings>({
-        dark_mode: false,
-    });
+    const [settings, setSettingsState] = useState<null | ActualSettings>(getSettings);
     const [errors, setError] = useState<Error | null>();
 
-    useEffect(() => {
-        // fetch('/api/settings')
-        //     .then((res) => res.json())
-        //     .then(setSettings);
-    }, []);
+    const mounted = useRef<boolean>(false);
 
-    const updateSettings = async (settings: ActualSettings) => {
-        // fetch('/api/settings', {
-        //     method: 'POST',
-        //     body: JSON.stringify(settings),
-        // })
-        //     .then((res) => res.json())
-        //     .then(setSettings)
-        //     .catch(console.error);
+    useEffect(() => {
+        if (mounted.current && settings) {
+            setSettings(settings);
+        } else {
+            mounted.current = true;
+        }
+    }, [settings]);
+
+    const updateSettings = (settings: ActualSettings) => {
+        setSettingsState(settings);
     };
 
     if (!settings) return null;

@@ -12,12 +12,10 @@ export const SettingsPage = () => {
     const saveChanges = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        // updateSettings?.({
-        //     id: '1',
-        //     dark_mode: !!darkMode,
-        // }).then((data) => {
-        //     router.push('/');
-        // });
+        updateSettings?.({
+            dark_mode: !!darkMode
+        });
+        router.push('/');
     };
 
     return (

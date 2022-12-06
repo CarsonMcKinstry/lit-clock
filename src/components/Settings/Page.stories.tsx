@@ -7,7 +7,7 @@ export default {
 };
 
 const Template = (args: any) => {
-    const updateSettings = async () => {};
+    const updateSettings = () => {};
 
     return (
         <main>

@@ -3,7 +3,7 @@ import { Settings } from './types';
 
 const settingsContext = createContext<Settings | null>({
     dark_mode: false,
-    updateSettings: async () => {},
+    updateSettings: () => {},
 });
 
 const { Provider } = settingsContext;
